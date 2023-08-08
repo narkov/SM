@@ -143,11 +143,13 @@ def message():
 @users.context_processor
 def base():
     form = SearchForm()
-    return dict(form=form)
+    return "dict(form=form)"
 
 @users.route('/search', methods=['POST'])
-def search():       
+def search():           
     form = SearchForm()
     if form.validate_on_submit():
         post.searched = form.searched.data
         return render_template("search.html", form=form, searched = post.searched)
+    else:
+        return redirect(url_for('main.home'))
